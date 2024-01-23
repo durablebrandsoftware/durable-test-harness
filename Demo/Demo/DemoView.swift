@@ -11,18 +11,14 @@ import DurableTestHarness
 /// before the main demo view.
 struct DemoView: View {
     
-    /// The internal state that determines if the welcome view should be displayed. Notice that it
-    /// is initially set to the custom test setting provided in the `AppTestSettings` object. It's safe to do
-    /// this even for your App Store release, as long as `skipWelcomeAtLaunch` as a default value set
-    /// to how that App Store release should behave.
-    @State private var showWelcome = !AppTestSettings.get().skipWelcomeAtLaunch
+    @State private var showWelcome = true
     
     /// The timer for keeping the welcome view visible.
     let welcomeWaitTimer = Timer.publish(every: 2.5, on: .current, in: .common).autoconnect()
     
     var body: some View {
         ZStack {
-            if showWelcome {
+            if showWelcome && !AppTestSettings.get().skipWelcomeAtLaunch {
                 DemoWelcomeView()
             } else {
                 DemoMainView()

@@ -95,7 +95,7 @@ public class Log {
     }
 
     /// Internal function for determining if the type of log should be displayed, based on the settings and filter
-    /// set in the “Testing Settings” panel.
+    /// set in the “Test Settings” panel.
     private static func canLog(_ type: LogType, _ filter: String?) -> Bool {
         
         if !testHarnessEnabled { return false }

@@ -40,12 +40,12 @@ struct DemoMainView: View {
                 Log.todo("A TODO Log")
             }
 
-            Button("Log Testing Settings") {
+            Button("Log Test Settings") {
                 Log.toScreen("Current Test Settings", details: AppTestSettings.get())
                 Log.info(AppTestSettings.get())
             }
             
-            Text("Press and hold on the screen (anywhere a button doesn’t exist) to open up the “__Testing Settings__” panel.")
+            Text("Press and hold on the screen (anywhere a button doesn’t exist) to open up the “__Test Settings__” panel.")
                 .padding(.top, 20)
                 .opacity(0.25)
                 .multilineTextAlignment(.center)

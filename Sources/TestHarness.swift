@@ -46,6 +46,24 @@ public struct TestHarness<AppView: View, SettingsView: View>: View {
 
 }
 
-/// An internal global variable for controlling whether or nat the test harness is enabled. This
+/// An internal global variable for controlling whether or not the test harness is enabled. This
 /// will get set to the value passed in `enabled:` parameter of the `TestHarness` initializer.
 var testHarnessEnabled: Bool = false
+
+/// An extension to SwiftUI's `View` that provides a view modifier for enabling the test harness on your app's root view.
+
+public extension View {
+    
+    @ViewBuilder
+    public func withTestHarness(settings: TestSettings, settingsView: some View, enabled: Bool = true) -> some View {
+        if enabled {
+            TestHarness(enabled: enabled, settings: settings) {
+                self
+                settingsView
+            }
+        } else {
+            self
+        }
+    }
+    
+}

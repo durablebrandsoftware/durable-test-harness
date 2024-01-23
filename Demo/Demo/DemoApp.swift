@@ -11,10 +11,12 @@ import DurableTestHarness
 struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            TestHarness(enabled: true, settings: AppTestSettings()) {
-                DemoView()
-                AppTestSettingsView()
-            }
+            DemoView()
+                .withTestHarness(
+                    settings: AppTestSettings(),
+                    settingsView: AppTestSettingsView(),
+                    enabled: true
+                )
         }
     }
 }

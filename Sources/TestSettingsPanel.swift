@@ -119,7 +119,7 @@ struct TestSettingsPanel<Content: View>: View {
                 }
             SettingHeader("Filter:")
             TextField(
-                "Enter `filter:` Passed To Your Log Calls",
+                "Enter as the **`filter:`** param to **`Log`** calls",
                 text: $filter
             )
             .onChange(of: filter) { value in
@@ -129,6 +129,7 @@ struct TestSettingsPanel<Content: View>: View {
             .textInputAutocapitalization(.never)
             #endif
             .disableAutocorrection(true)
+            .padding(.bottom, 8)
 
             Toggle("Do Not Filter ERROR or CRITICAL Logs", isOn: $doNotFilterErrorCriticalLogs)
                 .frame(maxWidth: .infinity, alignment: .leading)
