@@ -17,6 +17,7 @@ struct DemoApp: App {
                     settingsView: AppTestSettingsView(),
                     enabled: true
                 )
+                .withTestSettingsPanelAccess()
         }
     }
 }

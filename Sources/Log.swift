@@ -57,7 +57,7 @@ public class Log {
     /// - Parameter details: An optional line of details that will be displayed in smaller type under the message.
     public static func toScreen(_ message: Any?, details: Any? = nil) {
         if testHarnessEnabled {
-            screenLogState.addMessage((message != nil ? String(describing: message!) : "nil"), details: (details != nil ? String(describing: details!) : nil))
+            testHarnessState.addScreenLogMessage((message != nil ? String(describing: message!) : "nil"), details: (details != nil ? String(describing: details!) : nil))
         }
     }
     

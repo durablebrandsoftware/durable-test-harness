@@ -10,13 +10,13 @@ import SwiftUI
 struct ScreenLogView: View {
 
     @Environment(\.colorScheme) var colorScheme
-    @EnvironmentObject fileprivate var screenLogState: ScreenLogState
+    @EnvironmentObject fileprivate var testHarnessState: TestHarnessState
     
     /// Returns the fully composed `ScreenLog` view.
     var body: some View {
         let messageBackgroundColor = (colorScheme == .dark ? Color(red: 1.0, green: 1.0, blue: 1.0, opacity: 0.25) : Color(red: 0.0, green: 0.0, blue: 0.0, opacity: 0.4))
         return VStack(spacing: 1) {
-            if screenLogState.messages.count > 0 && !screenLogState.hidden {
+            if testHarnessState.screenLogMessages.count > 0 && !testHarnessState.hideScreenLogs {
                 HStack {
                     Button {
                         clearLog()
@@ -31,7 +31,7 @@ struct ScreenLogView: View {
                     .background(messageBackgroundColor)
                 }
                 VStack(spacing: 1) {
-                    ForEach(screenLogState.messages) { message in
+                    ForEach(testHarnessState.screenLogMessages) { message in
                         HStack {
                             VStack {
                                 Text(message.text)
@@ -58,19 +58,19 @@ struct ScreenLogView: View {
     }
     
     private func clearLog() {
-        screenLogState.messages = [ScreenLogMessage]()
+        testHarnessState.screenLogMessages = [ScreenLogMessage]()
     }
     
     private func removeMessage(id: String) {
         var foundIndex: Int? = nil
-        for index in 0..<screenLogState.messages.count {
-            let message = screenLogState.messages[index]
+        for index in 0..<testHarnessState.screenLogMessages.count {
+            let message = testHarnessState.screenLogMessages[index]
             if message.id == id {
                 foundIndex = index
             }
         }
         if let index = foundIndex {
-            screenLogState.messages.remove(at: index)
+            testHarnessState.screenLogMessages.remove(at: index)
         }
     }
     
@@ -82,17 +82,4 @@ struct ScreenLogMessage: Identifiable, Codable {
     var text: String
     var details: String?
 }
-
-
-/// The internal observable state object for managing and updating the screen log .
-class ScreenLogState: ObservableObject {
-
-    @Published var messages = [ScreenLogMessage]()
-    @Published var hidden = TestSettings.load().hideScreenLogs
-
-    func addMessage(_ text: String, details: String? = nil) {
-        messages.insert(ScreenLogMessage(text: text, details: details), at: 0)
-    }
-}
-var screenLogState = ScreenLogState()
 

@@ -10,8 +10,8 @@ import SwiftUI
 /// is displayed whenever you long-press on the view you embedded in the `TestHarness` view.
 struct TestSettingsPanel<Content: View>: View {
 
+    @EnvironmentObject private var testHarnessState: TestHarnessState
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var screenLogState: ScreenLogState
 
     @ViewBuilder public let appTestingControlSettingsView: () -> Content
 
@@ -84,7 +84,7 @@ struct TestSettingsPanel<Content: View>: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .onChange(of: hideScreenLogs) { value in
                     TestSettings.load().hideScreenLogs = hideScreenLogs
-                    screenLogState.hidden = hideScreenLogs
+                    testHarnessState.hideScreenLogs = hideScreenLogs
                 }
             SettingHeader("Console Logs:")
             Toggle("👁 INFO", isOn: $infoConsoleLogs)
